@@ -26,7 +26,7 @@ class RecordSoundsViewController: UIViewController{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "segueToPlaySounds"){
+        if segue.identifier == "segueToPlaySounds" {
             let playSoundsVC = segue.destination as! PlaySoundsViewController
             let recordedAudioURL = sender as! URL
             playSoundsVC.recordedAudioURL = recordedAudioURL
@@ -46,7 +46,7 @@ class RecordSoundsViewController: UIViewController{
     
     // MARK: Private Functions
     private func configureUI(recording:Bool){
-        if(recording){
+        if recording {
             recordButton.isEnabled = false
             stopRecordButton.isEnabled = true
             recordLabel.text = "Recording in progress"
@@ -58,10 +58,8 @@ class RecordSoundsViewController: UIViewController{
     }
     
     private func onAudioStopped(success:Bool){
-        if(success){
+        if success {
             performSegue(withIdentifier: "segueToPlaySounds", sender: audioFile.url)
-        }else{
-            //Record not finished properly
         }
     }
     
