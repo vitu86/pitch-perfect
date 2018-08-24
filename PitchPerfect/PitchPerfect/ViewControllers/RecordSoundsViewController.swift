@@ -49,11 +49,11 @@ class RecordSoundsViewController: UIViewController{
         if recording {
             recordButton.isEnabled = false
             stopRecordButton.isEnabled = true
-            recordLabel.text = "Recording in progress"
+            recordLabel.text = NSLocalizedString("recordingInProgress", comment: "Text to show user that the record is in progress")
         }else{
             recordButton.isEnabled = true
             stopRecordButton.isEnabled = false
-            recordLabel.text = "Tap to record"
+            recordLabel.text = NSLocalizedString("tapToRecord", comment: "Text to show user that the button needs to be tapped to begin record")
         }
     }
     

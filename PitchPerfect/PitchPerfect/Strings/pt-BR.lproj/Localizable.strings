@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  PitchPerfect
+
+  Created by Vitor Costa on 24/08/18.
+  Copyright © 2018 Vitor Costa. All rights reserved.
+*/
+
+"tapToRecord" = "Clique para gravar";
+"recordingInProgress" = "Gravação em progresso";
