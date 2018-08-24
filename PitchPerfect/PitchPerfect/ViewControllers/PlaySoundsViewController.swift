@@ -29,10 +29,35 @@ class PlaySoundsViewController: UIViewController {
     
     enum ButtonType: Int { case slow = 0, fast, highPitch, lowPitch, echo, reverb}
     
-    // MARK: Override functions
+    // MARK: Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI(.notPlaying)
+        readjustButton()
         setupAudio()
+    }
+    
+    // MARK: Private Functions
+    
+    // Adjusting buttons's mode so they don't stretch on screen in landscape mode
+    private func readjustButton(){
+        slowButton.contentMode = .center
+        slowButton.imageView?.contentMode = .scaleAspectFit
+        
+        highPitchButton.contentMode = .center
+        highPitchButton.imageView?.contentMode = .scaleAspectFit
+        
+        fastButton.contentMode = .center
+        fastButton.imageView?.contentMode = .scaleAspectFit
+        
+        lowPitchButton.contentMode = .center
+        lowPitchButton.imageView?.contentMode = .scaleAspectFit
+        
+        echoButton.contentMode = .center
+        echoButton.imageView?.contentMode = .scaleAspectFit
+        
+        reverbButton.contentMode = .center
+        reverbButton.imageView?.contentMode = .scaleAspectFit
     }
     
     // MARK: IBActions
