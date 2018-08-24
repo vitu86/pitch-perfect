@@ -14,6 +14,7 @@
 		4A3A1FB3212E234700FFD136 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A3A1FB1212E234700FFD136 /* LaunchScreen.storyboard */; };
 		4A3A1FC1212E31A600FFD136 /* PlaySoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A1FC0212E31A600FFD136 /* PlaySoundsViewController.swift */; };
 		4A3A1FC5212E3A7300FFD136 /* PlaySoundsViewVontroller+Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3A1FC4212E3A7300FFD136 /* PlaySoundsViewVontroller+Audio.swift */; };
+		4AE5FD26212FA37D00408B80 /* AudioFileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5FD25212FA37D00408B80 /* AudioFileModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		4A3A1FB4212E234700FFD136 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A3A1FC0212E31A600FFD136 /* PlaySoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySoundsViewController.swift; sourceTree = "<group>"; };
 		4A3A1FC4212E3A7300FFD136 /* PlaySoundsViewVontroller+Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlaySoundsViewVontroller+Audio.swift"; sourceTree = "<group>"; };
+		4AE5FD25212FA37D00408B80 /* AudioFileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioFileModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 				4A3A1FB4212E234700FFD136 /* Info.plist */,
 				4A3A1FBC212E23BC00FFD136 /* Assets */,
 				4A3A1FC3212E3A5100FFD136 /* Extensions */,
+				4AE5FD24212FA36900408B80 /* Models */,
 				4A3A1FBB212E239B00FFD136 /* Storyboards */,
 				4A3A1FBA212E237C00FFD136 /* ViewControllers */,
 			);
@@ -100,6 +103,14 @@
 				4A3A1FC4212E3A7300FFD136 /* PlaySoundsViewVontroller+Audio.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4AE5FD24212FA36900408B80 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4AE5FD25212FA37D00408B80 /* AudioFileModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A3A1FAB212E234600FFD136 /* RecordSoundsViewController.swift in Sources */,
+				4AE5FD26212FA37D00408B80 /* AudioFileModel.swift in Sources */,
 				4A3A1FC1212E31A600FFD136 /* PlaySoundsViewController.swift in Sources */,
 				4A3A1FA9212E234600FFD136 /* AppDelegate.swift in Sources */,
 				4A3A1FC5212E3A7300FFD136 /* PlaySoundsViewVontroller+Audio.swift in Sources */,
@@ -323,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87JB6QS95U;
 				INFOPLIST_FILE = PitchPerfect/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -341,6 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 87JB6QS95U;
 				INFOPLIST_FILE = PitchPerfect/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

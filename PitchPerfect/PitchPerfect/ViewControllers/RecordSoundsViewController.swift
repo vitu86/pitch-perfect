@@ -7,21 +7,21 @@
 //
 
 import UIKit
-import AVFoundation
 
-class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
+class RecordSoundsViewController: UIViewController{
 
     // MARK: IBOutlets
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var stopRecordButton: UIButton!
     
-    // MARK: Properties
-    private var audioRecorder:AVAudioRecorder!
-    
-    // MARK: Override functions
+    // MARK: Private Properties
+    private var audioFile:AudioFileModel!
+        
+    // MARK: Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        audioFile = AudioFileModel(fileName: "recordedVoice.wav", functionToCallWhenFinish: onAudioStopped)
         configureUI(recording: false)
     }
     
@@ -35,31 +35,16 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     // MARK: IBActions
     @IBAction func recordAudio(_ sender: Any) {
-        let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
-        let recordingName = "recordedVoice.wav"
-        let pathArray = [dirPath, recordingName]
-        let filePath = URL(string: pathArray.joined(separator: "/"))
-        
-        let session = AVAudioSession.sharedInstance()
-        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
-        
-        try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
-        audioRecorder.isMeteringEnabled = true
-        audioRecorder.prepareToRecord()
-        audioRecorder.record()
-                
+        audioFile.startRecording()
         configureUI(recording: true)
     }
 
     @IBAction func stopRecording(_ sender: Any) {
-        audioRecorder.stop()
-        let audioSession = AVAudioSession.sharedInstance()
-        try! audioSession.setActive(false)
-        
+        audioFile.stopRecording()
         configureUI(recording: false)
     }
     
-    // MARK: private functions
+    // MARK: Private Functions
     private func configureUI(recording:Bool){
         if(recording){
             recordButton.isEnabled = false
@@ -72,13 +57,11 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
-    // MARK: AVAudioRecorderDelegate Functions
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("Finalizou a gravação")
-        if(flag){
-            performSegue(withIdentifier: "segueToPlaySounds", sender: audioRecorder.url)
+    private func onAudioStopped(success:Bool){
+        if(success){
+            performSegue(withIdentifier: "segueToPlaySounds", sender: audioFile.url)
         }else{
-            print("Recording was not successfull")
+            //Record not finished properly
         }
     }
     
