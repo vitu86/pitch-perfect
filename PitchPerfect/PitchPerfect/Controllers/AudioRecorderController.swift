@@ -8,7 +8,7 @@
 
 import AVFoundation
 
-class AudioFileModel: NSObject, AVAudioRecorderDelegate{
+class AudioRecorderController: NSObject, AVAudioRecorderDelegate{
     
     // MARK: Private Properties
     private var audioRecorder:AVAudioRecorder!

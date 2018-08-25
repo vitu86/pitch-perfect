@@ -1,46 +1,64 @@
-//  PlaySoundsViewController+Audio.swift
+//
+//  AudioPlayerController.swift
 //  PitchPerfect
 //
-//  Copyright Â© 2016 Udacity. All rights reserved.
+//  Created by Vitor Costa on 24/08/18.
+//  Copyright © 2018 Vitor Costa. All rights reserved.
 //
+//  This class is completely based on
+//  PlaySoundsViewController+Audio.swift
+//  from PitchPerfect project of Udacity©
+//  that is:
+//  Copyright © 2016 Udacity. All rights reserved.
+//  All credits of the original class for Udacity©
 
-import UIKit
 import AVFoundation
 
-// MARK: - PlaySoundsViewController: AVAudioPlayerDelegate
-
-extension PlaySoundsViewController: AVAudioPlayerDelegate {
+class AudioPlayerController: NSObject, AVAudioPlayerDelegate {
     
-    // MARK: Alerts
-    
-    struct Alerts {
-        static let DismissAlert = "Dismiss"
-        static let RecordingDisabledTitle = "Recording Disabled"
-        static let RecordingDisabledMessage = "You've disabled this app from recording your microphone. Check Settings."
-        static let RecordingFailedTitle = "Recording Failed"
-        static let RecordingFailedMessage = "Something went wrong with your recording."
-        static let AudioRecorderError = "Audio Recorder Error"
-        static let AudioSessionError = "Audio Session Error"
-        static let AudioRecordingError = "Audio Recording Error"
-        static let AudioFileError = "Audio File Error"
-        static let AudioEngineError = "Audio Engine Error"
+    // MARK: Audio Player Controller Helpers (Error and Event Helper)
+    // Couldn't find a way to localize enum's, so used struct
+    private struct ErrorHelper {
+        static let AudioFileError = NSLocalizedString("AudioFileError", comment: "Message when audio file creation goes wrong")
+        static let AudioEngineError = NSLocalizedString("AudioEngineError", comment: "Message when audio engine start goes wrong")
     }
     
-    // MARK: PlayingState (raw values correspond to sender tags)
+    enum StateHelper {
+        case playing, notPlaying
+    }
     
-    enum PlayingState { case playing, notPlaying }
+    // MARK: Private properties
+    private var audioFile: AVAudioFile!
+    private var audioEngine: AVAudioEngine!
+    private var audioPlayerNode: AVAudioPlayerNode!
+    private var stopTimer: Timer!
+    private var funcCallBackError:((String) -> Void)!
+    private var funcCallBackState:((StateHelper) -> Void)!
     
-    // MARK: Audio Functions
-    
-    func setupAudio() {
-        // initialize (recording) audio file
+    // MARK: Override Functions
+    init(fileURL:URL, functionToHandleErrors:@escaping ((String) -> Void), functionToHandleStates:@escaping ((StateHelper) -> Void)){
+        super.init()
+        funcCallBackError = functionToHandleErrors
+        funcCallBackState = functionToHandleStates
+        
+        funcCallBackState(.notPlaying)
+        
         do {
-            audioFile = try AVAudioFile(forReading: recordedAudioURL as URL)
+            audioFile = try AVAudioFile(forReading: fileURL)
         } catch {
-            showAlert(Alerts.AudioFileError, message: String(describing: error))
-        }        
+            funcCallBackError(ErrorHelper.AudioFileError)
+        }
     }
     
+    // Private Functions
+    // Connect list of audio nodes
+    private func connectAudioNodes(_ nodes: AVAudioNode...) {
+        for x in 0..<nodes.count-1 {
+            audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
+        }
+    }
+    
+    // Public Functions
     func playSound(rate: Float? = nil, pitch: Float? = nil, echo: Bool = false, reverb: Bool = false) {
         
         // initialize audio engine components
@@ -98,19 +116,20 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
             }
             
             // schedule a stop timer for when audio finishes playing
-            self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(PlaySoundsViewController.stopAudio), userInfo: nil, repeats: false)
+            self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(self.stopAudio), userInfo: nil, repeats: false)
             RunLoop.main.add(self.stopTimer!, forMode: RunLoopMode.defaultRunLoopMode)
         }
         
         do {
             try audioEngine.start()
         } catch {
-            showAlert(Alerts.AudioEngineError, message: String(describing: error))
+            funcCallBackError(ErrorHelper.AudioEngineError)
             return
         }
         
         // play the recording!
         audioPlayerNode.play()
+        funcCallBackState(.playing)
     }
     
     @objc func stopAudio() {
@@ -123,47 +142,11 @@ extension PlaySoundsViewController: AVAudioPlayerDelegate {
             stopTimer.invalidate()
         }
         
-        configureUI(.notPlaying)
-                        
         if let audioEngine = audioEngine {
             audioEngine.stop()
             audioEngine.reset()
         }
-    }
-    
-    // MARK: Connect List of Audio Nodes
-    
-    func connectAudioNodes(_ nodes: AVAudioNode...) {
-        for x in 0..<nodes.count-1 {
-            audioEngine.connect(nodes[x], to: nodes[x+1], format: audioFile.processingFormat)
-        }
-    }
-    
-    // MARK: UI Functions
-
-    func configureUI(_ playState: PlayingState) {
-        switch(playState) {
-        case .playing:
-            setPlayButtonsEnabled(false)
-            stopButton.isEnabled = true
-        case .notPlaying:
-            setPlayButtonsEnabled(true)
-            stopButton.isEnabled = false
-        }
-    }
-    
-    func setPlayButtonsEnabled(_ enabled: Bool) {
-        slowButton.isEnabled = enabled
-        highPitchButton.isEnabled = enabled
-        fastButton.isEnabled = enabled
-        lowPitchButton.isEnabled = enabled
-        echoButton.isEnabled = enabled
-        reverbButton.isEnabled = enabled
-    }
-
-    func showAlert(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Alerts.DismissAlert, style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        
+        funcCallBackState(.notPlaying)
     }
 }

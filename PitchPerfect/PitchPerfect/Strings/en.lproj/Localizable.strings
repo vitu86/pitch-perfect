@@ -8,3 +8,6 @@
 
 "tapToRecord" = "Tap to record";
 "recordingInProgress" = "Recording in progress";
+"AudioFileError" = "Error trying to create audio file";
+"AudioEngineError" = "Error trying to start audio engine";
+"error" = "Error";

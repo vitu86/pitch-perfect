@@ -20,24 +20,36 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var reverbButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     
-    // MARK: properties
+    // MARK: Public Properties
     var recordedAudioURL: URL!
-    var audioFile: AVAudioFile!
-    var audioEngine: AVAudioEngine!
-    var audioPlayerNode: AVAudioPlayerNode!
-    var stopTimer: Timer!
+    
+    // MARK: Private Properties
+    private var audioPlayer:AudioPlayerController!
     
     enum ButtonType: Int { case slow = 0, fast, highPitch, lowPitch, echo, reverb}
     
     // MARK: Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI(.notPlaying)
         readjustButton()
-        setupAudio()
+        audioPlayer = AudioPlayerController(fileURL: recordedAudioURL, functionToHandleErrors: onAudioControllerError, functionToHandleStates: onAudioControllerStates)
     }
     
     // MARK: Private Functions
+    private func onAudioControllerError(error:String) {
+        showAlert(title: NSLocalizedString("error", comment: "The word 'error' capitalized to be used in alert popup's title"), message: error)
+    }
+    
+    private func onAudioControllerStates(event:AudioPlayerController.StateHelper){
+        switch(event) {
+        case .playing:
+            setPlayButtonsEnabled(false)
+            stopButton.isEnabled = true
+        case .notPlaying:
+            setPlayButtonsEnabled(true)
+            stopButton.isEnabled = false
+        }
+    }
     
     // Adjusting buttons's mode so they don't stretch on screen in landscape mode
     private func readjustButton(){
@@ -60,27 +72,41 @@ class PlaySoundsViewController: UIViewController {
         reverbButton.imageView?.contentMode = .scaleAspectFit
     }
     
+    private func setPlayButtonsEnabled(_ enabled: Bool) {
+        slowButton.isEnabled = enabled
+        highPitchButton.isEnabled = enabled
+        fastButton.isEnabled = enabled
+        lowPitchButton.isEnabled = enabled
+        echoButton.isEnabled = enabled
+        reverbButton.isEnabled = enabled
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: IBActions
     @IBAction func playSoundForButton(_ sender: UIButton){
         switch (ButtonType(rawValue: sender.tag)!) {
         case .slow:
-            playSound(rate:0.5)
+            audioPlayer.playSound(rate:0.5)
         case .fast:
-            playSound(rate: 1.5)
+            audioPlayer.playSound(rate: 1.5)
         case .highPitch:
-            playSound(pitch: 1000)
+            audioPlayer.playSound(pitch: 1000)
         case .lowPitch:
-            playSound(pitch: -1000)
+            audioPlayer.playSound(pitch: -1000)
         case .echo:
-            playSound(echo:true)
+            audioPlayer.playSound(echo:true)
         case .reverb:
-            playSound(reverb:true)
+            audioPlayer.playSound(reverb:true)
         }
-        configureUI(.playing)
     }
     
     @IBAction func stopButtonPressed(_ sender: AnyObject){
-        stopAudio()
+        audioPlayer.stopAudio()
     }
 }
 
