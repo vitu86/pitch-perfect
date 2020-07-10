@@ -12,7 +12,7 @@ options:
 name: PitchPerfect
 
 targets:
-  FeatureFoundation:
+  PitchPerfect:
     type: application
     platform: iOS
     sources: 
