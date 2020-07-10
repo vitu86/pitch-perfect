@@ -117,7 +117,7 @@ class AudioPlayerController: NSObject, AVAudioPlayerDelegate {
             
             // schedule a stop timer for when audio finishes playing
             self.stopTimer = Timer(timeInterval: delayInSeconds, target: self, selector: #selector(self.stopAudio), userInfo: nil, repeats: false)
-            RunLoop.main.add(self.stopTimer!, forMode: RunLoopMode.defaultRunLoopMode)
+            RunLoop.main.add(self.stopTimer!, forMode: RunLoop.Mode.default)
         }
         
         do {

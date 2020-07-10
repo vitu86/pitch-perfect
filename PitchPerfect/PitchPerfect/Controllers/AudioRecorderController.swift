@@ -32,7 +32,7 @@ class AudioRecorderController: NSObject, AVAudioRecorderDelegate{
         let filePath = URL(string: pathArray.joined(separator: "/"))
         
         let session = AVAudioSession.sharedInstance()
-        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+        try! session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: AVAudioSession.CategoryOptions.defaultToSpeaker)
         
         try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
         audioRecorder.isMeteringEnabled = true
@@ -55,4 +55,9 @@ class AudioRecorderController: NSObject, AVAudioRecorderDelegate{
         functionToCallBack(flag)
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

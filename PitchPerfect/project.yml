@@ -1,0 +1,29 @@
+
+attributes:
+  ORGANIZATIONNAME: "Vitor Costa"
+
+options:
+  preGenCommand: swiftgen
+  developmentLanguage: "pt-BR"
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "10.0"
+
+name: PitchPerfect
+
+targets:
+  FeatureFoundation:
+    type: application
+    platform: iOS
+    sources: 
+      - path: PitchPerfect
+        excludes:
+          - "**/.gitkeep"
+
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: cc.vitorcosta.pitchperfect
+
+    preBuildScripts:
+      - name: Swiftgen
+        script: swiftgen
