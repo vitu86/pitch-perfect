@@ -59,7 +59,7 @@
 
 
 strings:
-  inputs: PitchPerfect/Resources/Internationalization
+  inputs: PitchPerfect/Resources/Internationalization/Base.lproj
   outputs:
     - templateName: structured-swift4
       output: PitchPerfect/Resources/Generated/Strings.generated.swift
