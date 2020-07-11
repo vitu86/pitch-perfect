@@ -4,6 +4,7 @@ attributes:
 
 options:
   preGenCommand: swiftgen
+  postGenCommand: swiftlint
   developmentLanguage: "pt-BR"
   createIntermediateGroups: true
   deploymentTarget:
@@ -20,6 +21,9 @@ targets:
         excludes:
           - "**/.gitkeep"
 
+    dependencies:
+      - carthage: TinyConstraints
+
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: cc.vitorcosta.pitchperfect
@@ -27,3 +31,6 @@ targets:
     preBuildScripts:
       - name: Swiftgen
         script: swiftgen
+      - name: Swiftlint
+        script: swiftlint
+    

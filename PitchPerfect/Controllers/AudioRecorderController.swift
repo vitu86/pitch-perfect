@@ -32,11 +32,11 @@ class AudioRecorderController: NSObject, AVAudioRecorderDelegate{
         let filePath = URL(string: pathArray.joined(separator: "/"))
         
         let session = AVAudioSession.sharedInstance()
-        try! session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+        try? session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: AVAudioSession.CategoryOptions.defaultToSpeaker)
         
-        try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
-        audioRecorder.isMeteringEnabled = true
-        audioRecorder.delegate = self
+        try? audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
+        audioRecorder?.isMeteringEnabled = true
+        audioRecorder?.delegate = self
     }
     
     public func startRecording(){
@@ -47,7 +47,7 @@ class AudioRecorderController: NSObject, AVAudioRecorderDelegate{
     public func stopRecording(){
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
-        try! audioSession.setActive(false)
+        try? audioSession.setActive(false)
     }
     
     // MARK: AVAudioRecorderDelegate Functions

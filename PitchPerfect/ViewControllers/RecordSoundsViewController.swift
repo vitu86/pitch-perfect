@@ -8,31 +8,32 @@
 
 import UIKit
 
-class RecordSoundsViewController: UIViewController{
+class RecordSoundsViewController: UIViewController {
 
     // MARK: IBOutlets
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var recordLabel: UILabel!
     @IBOutlet weak var stopRecordButton: UIButton!
-    
+
     // MARK: Private Properties
-    private var audioFile:AudioRecorderController!
-        
+    private var audioFile: AudioRecorderController!
+
     // MARK: Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         audioFile = AudioRecorderController(fileName: "recordedVoice.wav", functionToCallWhenFinish: onAudioStopped)
         configureUI(recording: false)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToPlaySounds" {
-            let playSoundsVC = segue.destination as! PlaySoundsViewController
-            let recordedAudioURL = sender as! URL
+            if let playSoundsVC = segue.destination as? PlaySoundsViewController,
+                let recordedAudioURL = sender as? URL {
             playSoundsVC.recordedAudioURL = recordedAudioURL
+            }
         }
     }
-    
+
     // MARK: IBActions
     @IBAction func recordAudio(_ sender: Any) {
         audioFile.startRecording()
@@ -43,7 +44,7 @@ class RecordSoundsViewController: UIViewController{
         audioFile.stopRecording()
         configureUI(recording: false)
     }
-    
+
     // MARK: Private Functions
     private func configureUI(recording:Bool){
         if recording {
