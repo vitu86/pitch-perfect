@@ -21,8 +21,8 @@ class RecordSoundsViewController: UIViewController {
     // MARK: Override Functions
     override func viewDidLoad() {
         super.viewDidLoad()
-        audioFile = AudioRecorderController(
-            fileName: "recordedVoice.wav", functionToCallWhenFinish: onAudioStopped)
+//        audioFile = AudioRecorderController(
+//            fileName: "recordedVoice.wav", functionToCallWhenFinish: onAudioStopped)
         configureUI(recording: false)
     }
 

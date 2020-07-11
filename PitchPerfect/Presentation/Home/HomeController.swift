@@ -9,6 +9,9 @@
 import UIKit
 
 class HomeController: UIViewController {
+
+    private var audioFile: AudioRecorderController?
+
     private lazy var rootView: HomeView = {
         let home = HomeView()
         home.delegate = self
@@ -18,15 +21,25 @@ class HomeController: UIViewController {
     override func loadView() {
         view = rootView
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        audioFile = try? AudioRecorderController(fileName: "recordedVoice.wav")
+        audioFile?.delegate = self
+    }
 }
 
 // MARK: - Actions -
-extension HomeController: HomeViewDelegate {
+extension HomeController: HomeViewDelegate, AudioRecorderDelegate {
     func onStartRecordTapped() {
-        print("Startou a gravação")
+        audioFile?.startRecording()
     }
 
     func onStopRecordTapped() {
-        print("Stopou a gravação")
+        audioFile?.stopRecording()
+    }
+
+    func onRecordStopped(_ successfully: Bool) {
+        // TODO: GO TO play sounds
     }
 }
