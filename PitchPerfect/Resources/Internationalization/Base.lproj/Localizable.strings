@@ -6,8 +6,9 @@
   Copyright © 2020 Vitor Costa. All rights reserved.
 */
 
-"tapToRecord" = "Tap to record";
-"recordingInProgress" = "Recording in progress";
-"AudioFileError" = "Error trying to create audio file";
-"AudioEngineError" = "Error trying to start audio engine";
-"error" = "Error";
+// MARK : - Home Screen -
+"Home.TapToRecord" = "Tap to record";
+"Home.RecordingInProgress" = "Recording in progress";
+"Home.AudioFileError" = "Error trying to create audio file";
+"Home.AudioEngineError" = "Error trying to start audio engine";
+"Home.GenericError" = "Error";

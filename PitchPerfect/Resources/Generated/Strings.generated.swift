@@ -10,16 +10,19 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name
 internal enum L10n {
-  /// Error trying to start audio engine
-  internal static let audioEngineError = L10n.tr("Localizable", "AudioEngineError")
-  /// Error trying to create audio file
-  internal static let audioFileError = L10n.tr("Localizable", "AudioFileError")
-  /// Error
-  internal static let error = L10n.tr("Localizable", "error")
-  /// Recording in progress
-  internal static let recordingInProgress = L10n.tr("Localizable", "recordingInProgress")
-  /// Tap to record
-  internal static let tapToRecord = L10n.tr("Localizable", "tapToRecord")
+
+  internal enum Home {
+    /// Error trying to start audio engine
+    internal static let audioEngineError = L10n.tr("Localizable", "Home.AudioEngineError")
+    /// Error trying to create audio file
+    internal static let audioFileError = L10n.tr("Localizable", "Home.AudioFileError")
+    /// Error
+    internal static let genericError = L10n.tr("Localizable", "Home.GenericError")
+    /// Recording in progress
+    internal static let recordingInProgress = L10n.tr("Localizable", "Home.RecordingInProgress")
+    /// Tap to record
+    internal static let tapToRecord = L10n.tr("Localizable", "Home.TapToRecord")
+  }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name

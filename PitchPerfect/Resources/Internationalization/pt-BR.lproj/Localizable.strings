@@ -6,8 +6,9 @@
   Copyright © 2020 Vitor Costa. All rights reserved.
 */
 
-"tapToRecord" = "Clique para gravar";
-"recordingInProgress" = "Gravação em progresso";
-"AudioFileError" = "Erro tentando criar o arquivo de áudio";
-"AudioEngineError" = "Erro tentando iniciar o mecanismo de áudio";
-"error" = "Erro";
+// MARK : - Home Screen -
+"Home.TapToRecord" = "Clique para gravar";
+"Home.RecordingInProgress" = "Gravação em progresso";
+"Home.AudioFileError" = "Erro tentando criar o arquivo de áudio";
+"Home.AudioEngineError" = "Erro tentando iniciar o mecanismo de áudio";
+"Home.GenericError" = "Erro";
