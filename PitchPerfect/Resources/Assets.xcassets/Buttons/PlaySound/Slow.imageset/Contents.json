@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "Slow.png",
       "idiom" : "universal",
-      "filename" : "LowPitch.png",
       "scale" : "1x"
     },
     {
+      "filename" : "Slow@2x.png",
       "idiom" : "universal",
-      "filename" : "LowPitch@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "Slow@3x.png",
       "idiom" : "universal",
-      "filename" : "LowPitch@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

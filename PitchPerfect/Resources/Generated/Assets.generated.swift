@@ -19,16 +19,22 @@ internal typealias AssetImageTypeAlias = ImageAsset.Image
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
-  internal static let echo = ImageAsset(name: "Echo")
-  internal static let fast = ImageAsset(name: "Fast")
-  internal static let highPitch = ImageAsset(name: "HighPitch")
+  internal enum Buttons {
+    internal enum Home {
+      internal static let record = ImageAsset(name: "Buttons/Home/Record")
+    }
+    internal enum PlaySound {
+      internal static let echo = ImageAsset(name: "Buttons/PlaySound/Echo")
+      internal static let fast = ImageAsset(name: "Buttons/PlaySound/Fast")
+      internal static let highPitch = ImageAsset(name: "Buttons/PlaySound/HighPitch")
+      internal static let lowPitch = ImageAsset(name: "Buttons/PlaySound/LowPitch")
+      internal static let pause = ImageAsset(name: "Buttons/PlaySound/Pause")
+      internal static let reverb = ImageAsset(name: "Buttons/PlaySound/Reverb")
+      internal static let slow = ImageAsset(name: "Buttons/PlaySound/Slow")
+      internal static let stop = ImageAsset(name: "Buttons/PlaySound/Stop")
+    }
+  }
   internal static let launchImage = ImageAsset(name: "LaunchImage")
-  internal static let lowPitch = ImageAsset(name: "LowPitch")
-  internal static let pause = ImageAsset(name: "Pause")
-  internal static let record = ImageAsset(name: "Record")
-  internal static let reverb = ImageAsset(name: "Reverb")
-  internal static let slow = ImageAsset(name: "Slow")
-  internal static let stop = ImageAsset(name: "Stop")
   internal static let iTunesArtwork = ImageAsset(name: "iTunesArtwork")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
