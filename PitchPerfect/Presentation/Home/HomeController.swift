@@ -9,12 +9,9 @@
 import UIKit
 
 class HomeController: UIViewController {
-    private let rootView = HomeView()
-    
-    override func loadView() {
-        view = rootView
-    }
+  private let rootView = HomeView()
+
+  override func loadView() {
+    view = rootView
+  }
 }
-
-
-
