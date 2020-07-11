@@ -10,56 +10,57 @@ import AVFoundation
 
 class AudioRecorderController: NSObject, AVAudioRecorderDelegate {
 
-  // MARK: Private Properties
-  private var audioRecorder: AVAudioRecorder!
-  private var functionToCallBack: ((Bool) -> Void)!
+    // MARK: Private Properties
+    private var audioRecorder: AVAudioRecorder!
+    private var functionToCallBack: ((Bool) -> Void)!
 
-  var url: URL {
-    return audioRecorder.url
-  }
+    var url: URL {
+        return audioRecorder.url
+    }
 
-  // MARK: Public Methods
-  init(fileName: String, functionToCallWhenFinish: @escaping ((Bool) -> Void)) {
-    super.init()
+    // MARK: Public Methods
+    init(fileName: String, functionToCallWhenFinish: @escaping ((Bool) -> Void)) {
+        super.init()
 
-    functionToCallBack = functionToCallWhenFinish
+        functionToCallBack = functionToCallWhenFinish
 
-    let dirPath =
-      NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-    let recordingName = fileName
-    let pathArray = [dirPath, recordingName]
-    let filePath = URL(string: pathArray.joined(separator: "/"))
+        let dirPath =
+            NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            as String
+        let recordingName = fileName
+        let pathArray = [dirPath, recordingName]
+        let filePath = URL(string: pathArray.joined(separator: "/"))
 
-    let session = AVAudioSession.sharedInstance()
-    try? session.setCategory(
-      AVAudioSession.Category(
-        rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)),
-      options: AVAudioSession.CategoryOptions.defaultToSpeaker)
+        let session = AVAudioSession.sharedInstance()
+        try? session.setCategory(
+            AVAudioSession.Category(
+                rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)),
+            options: AVAudioSession.CategoryOptions.defaultToSpeaker)
 
-    try? audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
-    audioRecorder?.isMeteringEnabled = true
-    audioRecorder?.delegate = self
-  }
+        try? audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
+        audioRecorder?.isMeteringEnabled = true
+        audioRecorder?.delegate = self
+    }
 
-  public func startRecording() {
-    audioRecorder.prepareToRecord()
-    audioRecorder.record()
-  }
+    public func startRecording() {
+        audioRecorder.prepareToRecord()
+        audioRecorder.record()
+    }
 
-  public func stopRecording() {
-    audioRecorder.stop()
-    let audioSession = AVAudioSession.sharedInstance()
-    try? audioSession.setActive(false)
-  }
+    public func stopRecording() {
+        audioRecorder.stop()
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setActive(false)
+    }
 
-  // MARK: AVAudioRecorderDelegate Functions
-  func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-    functionToCallBack(flag)
-  }
+    // MARK: AVAudioRecorderDelegate Functions
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        functionToCallBack(flag)
+    }
 
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
-  return input.rawValue
+    return input.rawValue
 }

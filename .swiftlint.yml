@@ -1,3 +1,8 @@
+excluded:
+  - Carthage
+  - Carthage/Build
+  - Carthage/Checkouts
+
 disabled_rules:
   - identifier_name
   - line_length
@@ -87,3 +92,5 @@ analyzer_rules:
   - explicit_self
   - unused_declaration
   - unused_import
+
+indentation: 2

@@ -2,17 +2,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,carthage
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,swift,xcode,carthage
 
-### Carthage ###
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build
-Carthage/Checkouts
-Carthage/
-
-
 ### macOS ###
 # General
 .DS_Store
@@ -138,7 +127,19 @@ iOSInjectionProject/
 # End of https://www.toptal.com/developers/gitignore/api/macos,swift,xcode,carthage
 
 
-
 # CUSTOM
+
+### Carthage ###
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts
+
+Carthage/Build
+Carthage/Checkouts
+Carthage/
+
+
 *.generated.swift
 *.xcodeproj
+format.json

@@ -1,0 +1,1 @@
+swift-format -m format --configuration format.json  -i -r PitchPerfect
