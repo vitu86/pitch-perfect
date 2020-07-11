@@ -4,7 +4,6 @@ attributes:
 
 options:
   preGenCommand: swiftgen
-  # postGenCommand: swiftlint
   developmentLanguage: "pt-BR"
   createIntermediateGroups: true
   deploymentTarget:
@@ -23,7 +22,6 @@ targets:
 
     dependencies:
       - carthage: TinyConstraints
-      # - carthage: XCoordinator
 
     settings:
       base:
