@@ -7,6 +7,7 @@
 */
 
 // MARK : - Home Screen -
+"Home.Title" = "Grave!";
 "Home.TapToRecord" = "Clique para gravar";
 "Home.RecordingInProgress" = "Gravação em progresso";
 "Home.AudioFileError" = "Erro tentando criar o arquivo de áudio";

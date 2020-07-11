@@ -6,4 +6,8 @@
 //  Copyright © 2020 Vitor Costa. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class PlayView: UIView {
+    
+}

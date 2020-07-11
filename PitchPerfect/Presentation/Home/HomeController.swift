@@ -24,6 +24,8 @@ class HomeController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = L10n.Home.title
+
         audioFile = try? AudioRecorderController(fileName: "recordedVoice.wav")
         audioFile?.delegate = self
     }
@@ -40,6 +42,19 @@ extension HomeController: HomeViewDelegate, AudioRecorderDelegate {
     }
 
     func onRecordStopped(_ successfully: Bool) {
-        // TODO: GO TO play sounds
+        showPlaySound()
+    }
+
+    private func showPlaySound() {
+        hideNextTitleButtonNavBar()
+        let playSoundVC = PlayController()
+        playSoundVC.recordedAudioURL = audioFile?.url
+        navigationController?.pushViewController(playSoundVC, animated: true)
+    }
+}
+
+private extension UIViewController {
+    func hideNextTitleButtonNavBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
 }

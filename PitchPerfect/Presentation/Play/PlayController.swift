@@ -6,4 +6,13 @@
 //  Copyright © 2020 Vitor Costa. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class PlayController: UIViewController {
+    var recordedAudioURL: URL?
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .red
+    }
+}

@@ -143,3 +143,4 @@ Carthage/
 *.generated.swift
 *.xcodeproj
 format.json
+Cartfile.resolved
