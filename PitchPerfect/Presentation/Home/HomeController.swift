@@ -9,9 +9,24 @@
 import UIKit
 
 class HomeController: UIViewController {
-    private let rootView = HomeView()
+    private lazy var rootView: HomeView = {
+        let home = HomeView()
+        home.delegate = self
+        return home
+    }()
 
     override func loadView() {
         view = rootView
+    }
+}
+
+// MARK: - Actions -
+extension HomeController: HomeViewDelegate {
+    func onStartRecordTapped() {
+        print("Startou a gravação")
+    }
+
+    func onStopRecordTapped() {
+        print("Stopou a gravação")
     }
 }
