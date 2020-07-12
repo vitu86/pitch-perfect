@@ -13,5 +13,6 @@ enum Values {
         static let homeTopToBottomSpace: CGFloat = 22.0
         static let homeAspectRatio: CGFloat = 1.0
         static let homeButtonSize: CGFloat = 100.0
+        static let playSoundMargins: CGFloat = 40.0
     }
 }

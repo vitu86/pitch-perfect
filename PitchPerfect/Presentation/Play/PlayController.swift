@@ -11,8 +11,9 @@ import UIKit
 class PlayController: UIViewController {
     var recordedAudioURL: URL?
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .red
+    private let rootView = PlayView()
+
+    override func loadView() {
+        view = rootView
     }
 }

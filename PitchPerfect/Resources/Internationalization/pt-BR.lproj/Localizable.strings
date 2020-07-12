@@ -13,3 +13,6 @@
 "Home.AudioFileError" = "Erro tentando criar o arquivo de áudio";
 "Home.AudioEngineError" = "Erro tentando iniciar o mecanismo de áudio";
 "Home.GenericError" = "Erro";
+
+// MARK: - Play Sounds Screen -
+"PlaySounds.Title" = "Ouça!";

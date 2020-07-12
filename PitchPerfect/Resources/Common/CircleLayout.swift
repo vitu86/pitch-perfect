@@ -5,15 +5,16 @@
 //  Created by Robert Ryan on 1/24/17.
 //  Copyright © 2017 Robert Ryan. All rights reserved.
 //
+//  Made some modifications due to lint!
 
 import UIKit
 
 class CircleLayout: UICollectionViewLayout {
 
-    private var center: CGPoint!
-    private var itemSize: CGSize!
-    private var radius: CGFloat!
-    private var numberOfItems: Int!
+    private var center: CGPoint?
+    private var itemSize: CGSize?
+    private var radius: CGFloat?
+    private var numberOfItems: Int?
 
     override func prepare() {
         super.prepare()
@@ -22,36 +23,46 @@ class CircleLayout: UICollectionViewLayout {
 
         center = CGPoint(x: collectionView.bounds.midX, y: collectionView.bounds.midY)
         let shortestAxisLength = min(collectionView.bounds.width, collectionView.bounds.height)
-        itemSize = CGSize(width: shortestAxisLength * 0.1, height: shortestAxisLength * 0.1)
+        itemSize = CGSize(width: shortestAxisLength * 0.25, height: shortestAxisLength * 0.25)
         radius = shortestAxisLength * 0.4
         numberOfItems = collectionView.numberOfItems(inSection: 0)
     }
 
     override var collectionViewContentSize: CGSize {
-        return collectionView!.bounds.size
+        return collectionView?.bounds.size ?? .zero
     }
 
     override func layoutAttributesForItem(at indexPath: IndexPath)
-        -> UICollectionViewLayoutAttributes?
-    {
-        let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        -> UICollectionViewLayoutAttributes? {
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
 
-        let angle = 2 * .pi * CGFloat(indexPath.item) / CGFloat(numberOfItems)
+            guard let center = center,
+                let numberOfItems = numberOfItems,
+                let radius = radius,
+                let itemSize = itemSize else {
+                    return attributes
+            }
 
-        attributes.center = CGPoint(
-            x: center.x + radius * cos(angle), y: center.y + radius * sin(angle))
-        attributes.size = itemSize
+            let angle = 2 * .pi * CGFloat(indexPath.item) / CGFloat(numberOfItems)
 
-        return attributes
+            attributes.center = CGPoint(
+                x: center.x + radius * cos(angle),
+                y: center.y + radius * sin(angle)
+            )
+            attributes.size = itemSize
+
+            return attributes
     }
 
     override func layoutAttributesForElements(in rect: CGRect)
-        -> [UICollectionViewLayoutAttributes]?
-    {
-        return (0..<collectionView!.numberOfItems(inSection: 0)).compactMap {
-            item -> UICollectionViewLayoutAttributes? in
-            self.layoutAttributesForItem(at: IndexPath(item: item, section: 0))
-        }
+        -> [UICollectionViewLayoutAttributes]? {
+            guard let collectionView = collectionView else {
+                return nil
+            }
+
+            return (0..<collectionView.numberOfItems(inSection: 0)).compactMap { item -> UICollectionViewLayoutAttributes? in
+                self.layoutAttributesForItem(at: IndexPath(item: item, section: 0))
+            }
     }
 
     // MARK: - Handle insertion and deletion animation
@@ -64,12 +75,12 @@ class CircleLayout: UICollectionViewLayout {
 
         inserted =
             updateItems
-            .filter { $0.updateAction == .insert }
-            .compactMap { $0.indexPathAfterUpdate }
+                .filter { $0.updateAction == .insert }
+                .compactMap { $0.indexPathAfterUpdate }
         deleted =
             updateItems
-            .filter { $0.updateAction == .delete }
-            .compactMap { $0.indexPathBeforeUpdate }
+                .filter { $0.updateAction == .delete }
+                .compactMap { $0.indexPathBeforeUpdate }
     }
 
     override func finalizeCollectionViewUpdates() {
@@ -80,26 +91,29 @@ class CircleLayout: UICollectionViewLayout {
     }
 
     override func initialLayoutAttributesForAppearingItem(at itemIndexPath: IndexPath)
-        -> UICollectionViewLayoutAttributes?
-    {
-        var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
-        guard inserted!.contains(itemIndexPath) else { return attributes }
+        -> UICollectionViewLayoutAttributes? {
+            var attributes = super.initialLayoutAttributesForAppearingItem(at: itemIndexPath)
+            guard inserted?.contains(itemIndexPath) ?? false else { return attributes }
 
-        attributes = layoutAttributesForItem(at: itemIndexPath)
-        attributes?.center = CGPoint(x: collectionView!.bounds.midX, y: collectionView!.bounds.midY)
-        attributes?.alpha = 0
-        return attributes
+            attributes = layoutAttributesForItem(at: itemIndexPath)
+            attributes?.center = CGPoint(x: collectionView?.bounds.midX ?? 0, y: collectionView?.bounds.midY ?? 0)
+            attributes?.alpha = 0
+            return attributes
     }
 
     override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath)
-        -> UICollectionViewLayoutAttributes?
-    {
-        var attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
-        guard deleted!.contains(itemIndexPath) else { return attributes }
+        -> UICollectionViewLayoutAttributes? {
+            var attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath)
 
-        attributes = layoutAttributesForItem(at: itemIndexPath)
-        attributes?.center = CGPoint(x: collectionView!.bounds.midX, y: collectionView!.bounds.midY)
-        attributes?.transform = CGAffineTransform.init(scaleX: 0.01, y: 0.01)
-        return attributes
+            guard let deleted = deleted,
+                deleted.contains(itemIndexPath),
+                let collectionView = collectionView else {
+                    return attributes
+            }
+
+            attributes = layoutAttributesForItem(at: itemIndexPath)
+            attributes?.center = CGPoint(x: collectionView.bounds.midX, y: collectionView.bounds.midY)
+            attributes?.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+            return attributes
     }
 }
