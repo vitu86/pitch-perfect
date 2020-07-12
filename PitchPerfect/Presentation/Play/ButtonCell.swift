@@ -12,14 +12,21 @@ class ButtonCell: UICollectionViewCell {
 
     var style: Style? {
         didSet {
-            buttonImage.image = style?.getImage()
+            buttonImage.setImage(style?.getImage(), for: .normal)
         }
     }
 
-    private lazy var buttonImage: UIImageView = {
-        let image = UIImageView()
-        image.image = style?.getImage()
-        return image
+    var canTouch: Bool = true {
+        didSet {
+            buttonImage.isEnabled = canTouch
+        }
+    }
+
+    private lazy var buttonImage: UIButton = {
+        let button = UIButton()
+        button.setImage(style?.getImage(), for: .normal)
+        button.isUserInteractionEnabled = false
+        return button
     }()
 
     override init(frame: CGRect) {
@@ -42,8 +49,8 @@ extension ButtonCell {
     enum Style {
         case echo
         case fast
-        case highPich
-        case lowPich
+        case highPitch
+        case lowPitch
         case reverb
         case slow
 
@@ -55,10 +62,10 @@ extension ButtonCell {
             case .fast:
                 return Asset.Buttons.PlaySound.fast.image
 
-            case .highPich:
+            case .highPitch:
                 return Asset.Buttons.PlaySound.highPitch.image
 
-            case .lowPich:
+            case .lowPitch:
                 return Asset.Buttons.PlaySound.lowPitch.image
 
             case .reverb:
@@ -73,8 +80,8 @@ extension ButtonCell {
             switch position {
             case 0: self = .echo
             case 1: self = .fast
-            case 2: self = .highPich
-            case 3: self = .lowPich
+            case 2: self = .highPitch
+            case 3: self = .lowPitch
             case 4: self = .reverb
             default: self = .slow
             }

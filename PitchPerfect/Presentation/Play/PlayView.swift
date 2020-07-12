@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol PlayViewDelegate: AnyObject {
+    func onButtonTapped(_ button: ButtonCell)
+    func onPauseTapped()
+}
+
 class PlayView: UIView {
+
+    weak var delegate: PlayViewDelegate?
+    var isPlaying: Bool = false
 
     private lazy var buttons: UICollectionView = {
         let collection = UICollectionView(frame: .zero, collectionViewLayout: CircleLayout())
@@ -22,6 +30,7 @@ class PlayView: UIView {
     private let pauseButton: UIButton = {
         let button = UIButton()
         button.setImage(Asset.Buttons.Home.stop.image, for: .normal)
+        button.isEnabled = false
         return button
     }()
 
@@ -41,11 +50,13 @@ class PlayView: UIView {
 // MARK: - UI Config -
 extension PlayView {
 
-    func reset() {
-        buttons.collectionViewLayout.invalidateLayout()
+    func reset(isPlaying: Bool) {
+        self.isPlaying = isPlaying
+        pauseButton.isEnabled = isPlaying
+        buttons.reloadData()
     }
 
-    private func configUI(_ state: State = .waiting) {
+    private func configUI() {
         addSubview(buttons)
         addSubview(pauseButton)
 
@@ -57,18 +68,14 @@ extension PlayView {
     }
 
     private func addTaps() {
+        pauseButton.addTarget(self, action: #selector(onPauseTapped), for: .touchUpInside)
     }
 }
 
 // MARK: - Actions -
 extension PlayView {
-}
-
-// MARK: - State Machine -
-extension PlayView {
-    private enum State {
-        case waiting
-        case playing
+    @objc private func onPauseTapped() {
+        delegate?.onPauseTapped()
     }
 }
 
@@ -85,7 +92,15 @@ extension PlayView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
 
         cell?.style = .init(position: indexPath.row)
+        cell?.canTouch = !isPlaying
 
         return cell!
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let button = collectionView.cellForItem(at: indexPath) as?  ButtonCell else {
+            return
+        }
+        delegate?.onButtonTapped(button)
     }
 }
