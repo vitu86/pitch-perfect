@@ -19,6 +19,12 @@ class PlayView: UIView {
         return collection
     }()
 
+    private let pauseButton: UIButton = {
+        let button = UIButton()
+        button.setImage(Asset.Buttons.Home.stop.image, for: .normal)
+        return button
+    }()
+
     init() {
         super.init(frame: .zero)
         backgroundColor = .white
@@ -36,13 +42,18 @@ class PlayView: UIView {
 extension PlayView {
 
     func reset() {
-        buttons.invalidateIntrinsicContentSize()
+        buttons.collectionViewLayout.invalidateLayout()
     }
 
     private func configUI(_ state: State = .waiting) {
         addSubview(buttons)
+        addSubview(pauseButton)
 
         buttons.edgesToSuperview(insets: .horizontal(Values.Dimen.playSoundMargins), usingSafeArea: true)
+
+        pauseButton.center(in: buttons)
+        pauseButton.aspectRatio(Values.Dimen.homeAspectRatio)
+        pauseButton.width(Values.Dimen.homeButtonSize)
     }
 
     private func addTaps() {

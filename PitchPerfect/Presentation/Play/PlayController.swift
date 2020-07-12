@@ -16,4 +16,10 @@ class PlayController: UIViewController {
     override func loadView() {
         view = rootView
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = L10n.PlaySounds.title
+    }
+
 }
