@@ -15,6 +15,12 @@ targets:
   PitchPerfect:
     type: application
     platform: iOS
+    info:
+      path: PitchPerfect/Supporting Files/Info.plist
+      properties:
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
     sources: 
       - path: PitchPerfect
         excludes:
@@ -22,6 +28,7 @@ targets:
 
     dependencies:
       - carthage: TinyConstraints
+      - carthage: XCoordinator
 
     settings:
       base:

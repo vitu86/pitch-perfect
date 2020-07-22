@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let router = AppCoordinator().strongRouter
 
     func application(
         _ application: UIApplication,
@@ -20,11 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let homeController = HomeController()
-        let navigationController = UINavigationController(rootViewController: homeController)
-
-        window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        if let window = window {
+            router.setRoot(for: window)
+        }
 
         return true
     }

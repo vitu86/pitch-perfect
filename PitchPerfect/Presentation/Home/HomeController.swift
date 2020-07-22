@@ -8,15 +8,22 @@
 
 import UIKit
 
-class HomeController: UIViewController {
+class HomeController: BaseController {
 
     private var audioFile: AudioRecorderController?
+
+    private let viewModel: HomeViewModel
 
     private lazy var rootView: HomeView = {
         let home = HomeView()
         home.delegate = self
         return home
     }()
+
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
 
     override func loadView() {
         view = rootView
@@ -47,9 +54,7 @@ extension HomeController: HomeViewDelegate, AudioRecorderDelegate {
 
     private func showPlaySound() {
         hideNextTitleButtonNavBar()
-        let playSoundVC = PlayController()
-        playSoundVC.recordedAudioURL = audioFile?.url
-        navigationController?.pushViewController(playSoundVC, animated: true)
+        viewModel.triggerPlay(with: audioFile?.url)
     }
 }
 

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlayController: UIViewController {
+class PlayController: BaseController {
     var recordedAudioURL: URL? {
         didSet {
             audioPlayer = try? AudioPlayerController(fileURL: recordedAudioURL)
