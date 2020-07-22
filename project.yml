@@ -15,12 +15,17 @@ targets:
   PitchPerfect:
     type: application
     platform: iOS
+
     info:
       path: PitchPerfect/Supporting Files/Info.plist
       properties:
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UILaunchStoryboardName: LaunchScreen
         UIRequiresFullScreen: true
+        CFBundleDisplayName: "Pitch Perfect"
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+
     sources: 
       - path: PitchPerfect
         excludes:
@@ -32,7 +37,10 @@ targets:
 
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: cc.vitorcosta.pitchperfect
+        PRODUCT_BUNDLE_IDENTIFIER: costa.vitor.PitchPerfect
+        MARKETING_VERSION: "2.0.0" # App's Version
+        CURRENT_PROJECT_VERSION: "1" # Build number
+        DEVELOPMENT_TEAM: 87JB6QS95U
 
     preBuildScripts:
       - name: Swiftgen
