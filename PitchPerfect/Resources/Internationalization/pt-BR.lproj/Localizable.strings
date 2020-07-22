@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  PitchPerfect
+
+  Created by Vitor Costa on 10/07/20.
+  Copyright © 2020 Vitor Costa. All rights reserved.
+*/
+
+// MARK : - Home Screen -
+"Home.Title" = "Grave!";
+"Home.TapToRecord" = "Clique para gravar";
+"Home.RecordingInProgress" = "Gravação em progresso";
+"Home.AudioFileError" = "Erro tentando criar o arquivo de áudio";
+"Home.AudioEngineError" = "Erro tentando iniciar o mecanismo de áudio";
+"Home.GenericError" = "Erro";
+
+// MARK: - Play Sounds Screen -
+"PlaySounds.Title" = "Ouça!";
