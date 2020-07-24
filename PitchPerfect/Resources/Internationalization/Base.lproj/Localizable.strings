@@ -13,6 +13,9 @@
 "Home.AudioFileError" = "Error trying to create audio file";
 "Home.AudioEngineError" = "Error trying to start audio engine";
 "Home.GenericError" = "Error";
+"Home.PermissionError" = "Allow the microphone usage in 'Settings' -> 'Privacy' -> 'Microphone'";
+"Home.Alert.Settings" = "Settings";
+"Home.Alert.Cancel" = "Cancel";
 
 // MARK: - Play Sounds Screen -
 "PlaySounds.Title" = "Play!";

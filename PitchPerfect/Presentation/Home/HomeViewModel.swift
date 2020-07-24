@@ -19,4 +19,14 @@ class HomeViewModel {
     func triggerPlay(with file: URL?) {
         router.trigger(.play(file))
     }
+
+    func getPermission(completion: @escaping (Bool) -> Void) {
+        AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            if granted {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        }
+    }
 }

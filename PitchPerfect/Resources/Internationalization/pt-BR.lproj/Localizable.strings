@@ -13,6 +13,9 @@
 "Home.AudioFileError" = "Erro tentando criar o arquivo de áudio";
 "Home.AudioEngineError" = "Erro tentando iniciar o mecanismo de áudio";
 "Home.GenericError" = "Erro";
+"Home.PermissionError" = "Permita o uso do microfone em 'Configurações' -> 'Privacidade' -> 'Microfone'";
+"Home.Alert.Settings" = "Configurações";
+"Home.Alert.Cancel" = "Cancelar";
 
 // MARK: - Play Sounds Screen -
 "PlaySounds.Title" = "Ouça!";

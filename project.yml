@@ -25,6 +25,7 @@ targets:
         CFBundleDisplayName: "Pitch Perfect"
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSMicrophoneUsageDescription: "We need to access your microphone for record your voice so we can reproduce it with effects."
 
     sources: 
       - path: PitchPerfect
@@ -39,7 +40,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: costa.vitor.PitchPerfect
         MARKETING_VERSION: "2.0.0" # App's Version
-        CURRENT_PROJECT_VERSION: "1" # Build number
+        CURRENT_PROJECT_VERSION: "2" # Build number
         DEVELOPMENT_TEAM: 87JB6QS95U
 
     preBuildScripts:

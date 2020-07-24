@@ -54,7 +54,7 @@ class HomeView: UIView {
 
 // MARK: - UI Config -
 extension HomeView {
-    private func configUI(_ state: State = .waiting) {
+    func configUI(_ state: State = .waiting) {
         addSubview(uiContainer)
 
         uiContainer.addSubview(recordButton)
@@ -98,19 +98,17 @@ extension HomeView {
 // MARK: - Actions -
 extension HomeView {
     @objc private func onStartRecordTapped() {
-        configUI(.recording)
         delegate?.onStartRecordTapped()
     }
 
     @objc private func onStopRecordTapped() {
-        configUI(.waiting)
         delegate?.onStopRecordTapped()
     }
 }
 
 // MARK: - State Machine -
 extension HomeView {
-    private enum State {
+    enum State {
         case waiting
         case recording
     }
